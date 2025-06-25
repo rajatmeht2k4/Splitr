@@ -49,7 +49,7 @@ const ExpenseSummary = ({ monthlySpending, totalSpent }) => {
                     </div>
                 </div>
 
-                <div className="h-64 mt-6">
+                <div className="w-full h-64 sm:h-72 md:h-80 mt-6">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData}>
                             <CartesianGrid strokeDasharray="3 3"  vertical={false} />

@@ -38,7 +38,7 @@ const PersonPage = () => {
     const balance = data?.balance || 0;
 
     return (
-        <div className='container mx-auto py-6 max-w-4xl'>
+        <div className='container mx-auto py-6 max-w-4xl px-4 md:px-0'>
             <div className='mb-6'>
                 <Button
                     variant="outline"
@@ -65,18 +65,29 @@ const PersonPage = () => {
                     </div>
 
                     <div className='flex gap-2'>
-                        <Button asChild variant="outline">
-                            <Link href={`/settlements/user/${params.id}`}>
-                                <ArrowLeftRight className='mr-2 h-4 w-4' />
-                                Settle Up
-                            </Link>
-                        </Button>
-                        <Button asChild>
-                            <Link href="/expenses/new">
-                                <PlusCircle className='mr-2 h-4 w-4' />
-                                Add Expense
-                            </Link>
-                        </Button>
+                    <Button asChild variant="outline" className="hidden md:inline-flex">
+              <Link href={`/settlements/user/${params.id}`}>
+                <ArrowLeftRight className="mr-2 h-4 w-4" />
+                Settle Up
+              </Link>
+            </Button>
+            <Button asChild className="hidden md:inline-flex">
+              <Link href="/expenses/new">
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Expense
+              </Link>
+            </Button>
+
+            <Button asChild variant="outline" className="md:hidden">
+              <Link href={`/settlements/user/${params.id}`}>
+                <ArrowLeftRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild className="md:hidden">
+              <Link href="/expenses/new">
+                <PlusCircle className="h-4 w-4" />
+              </Link>
+            </Button>
                     </div>
                 </div>
             </div>

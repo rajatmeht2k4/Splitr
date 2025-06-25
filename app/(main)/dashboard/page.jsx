@@ -48,7 +48,7 @@ const DashboardPage = () => {
               </Link>
             </Button>
 
-            <Button className="md:hidden w-10 h-10">
+            <Button asChild className="md:hidden w-10 h-10">
                 <Link href="/expenses/new">
                   <PlusCircle className="h-4 w-4" />
                 </Link>

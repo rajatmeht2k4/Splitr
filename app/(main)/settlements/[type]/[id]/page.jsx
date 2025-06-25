@@ -42,7 +42,7 @@ export default function SettlementPage() {
   };
 
   return (
-    <div className="container mx-auto py-6 max-w-lg">
+    <div className="container mx-auto py-6 max-w-lg px-4 md:px-0">
       <Button
         variant="outline"
         size="sm"
