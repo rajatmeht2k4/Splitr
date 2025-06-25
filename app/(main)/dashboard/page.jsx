@@ -41,12 +41,15 @@ const DashboardPage = () => {
         <>
           <div className="flex items-center justify-between">
             <h1 className="text-5xl gradient-title">Dashboard</h1>
-
-            <Button asChild>
+            <Button asChild className="hidden md:inline-flex">
               <Link href="/expenses/new">
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Expense
               </Link>
+            </Button>
+
+            <Button className="md:hidden w-10 h-10">
+              <PlusCircle className="h-4 w-4" />
             </Button>
           </div>
 
