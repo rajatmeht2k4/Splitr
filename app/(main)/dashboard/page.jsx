@@ -35,7 +35,7 @@ const DashboardPage = () => {
     <div className="container mx-auto px-4 md:px-5 lg:px-20 py-6 space-y-6">
       {isLoading ? (
         <div className="w-full py-12 flex justify-center">
-          <BarLoader width={"100"} color="#36d7b7" />
+          <BarLoader width={"100%"} color="#36d7b7" />
         </div>
       ) : (
         <>
