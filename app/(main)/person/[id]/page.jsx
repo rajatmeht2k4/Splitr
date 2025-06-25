@@ -31,6 +31,10 @@ const PersonPage = () => {
             </div>
         );
     }
+    const handleBack = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        router.push("/dashboard");
+      };
 
     const otherUser = data?.otherUser;
     const expenses = data?.expenses || [];
@@ -44,7 +48,7 @@ const PersonPage = () => {
                     variant="outline"
                     size="sm"
                     className="mb-4"
-                    onClick ={() => router.back()}
+                    onClick ={handleBack}
                 >
                     <ArrowLeft className='h-4 w-4 mr-2' />
                     Back
@@ -59,7 +63,7 @@ const PersonPage = () => {
                             </AvatarFallback>
                         </Avatar>
                         <div>
-                            <h1 className='text-4xl gradient-title'>{otherUser?.name}</h1>
+                            <h1 className='text-3xl md:text-4xl gradient-title'>{otherUser?.name}</h1>
                             <p className='text-muted-foreground'>{otherUser?.email}</p>
                         </div>
                     </div>

@@ -39,6 +39,11 @@ const GroupPage = () => {
   const balances = data?.balances || [];
   const userLookupMap = data?.userLookupMap || [];
 
+  const handleBack = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    router.back("/dashboard"); //
+  };
+
   return (
     <div className="container mx-auto py-6 max-w-4xl px-4 md:px-0 ">
       <div className="mb-6">
@@ -46,7 +51,7 @@ const GroupPage = () => {
           variant="outline"
           size="sm"
           className="mb-4"
-          onClick={() => router.back()}
+          onClick={handleBack}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
@@ -58,7 +63,7 @@ const GroupPage = () => {
               <Users className="h-8 w-8 text-primary" />
             </div>
             <div>
-              <h1 className="text-4xl gradient-title">{group?.name}</h1>
+              <h1 className="text-3xl md:text-4xl gradient-title">{group?.name}</h1>
               <p className="text-muted-foreground">{group?.description}</p>
               <p className="text-sm text-muted-foreground mt-1">
                 {members.length} members

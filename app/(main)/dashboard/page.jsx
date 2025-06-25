@@ -40,7 +40,7 @@ const DashboardPage = () => {
       ) : (
         <>
           <div className="flex items-center justify-between">
-            <h1 className="text-5xl gradient-title">Dashboard</h1>
+            <h1 className="text-4xl md:text-5xl gradient-title">Dashboard</h1>
             <Button asChild className="hidden md:inline-flex">
               <Link href="/expenses/new">
                 <PlusCircle className="mr-2 h-4 w-4" />

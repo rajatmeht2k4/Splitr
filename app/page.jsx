@@ -68,7 +68,7 @@ export default function Home() {
           </Badge>
 
           <h2 className="gradient-title mt-2 text-3xl md:text-4xl">
-            Everything you ned to split expenses
+            Everything you need to split expenses
           </h2>
 
           <p className="mx-auto mt-3 max-w-[700px] text-gray-500 md:text-xl/relaxed">Our platform provides all the tools you need to handle shared expenses with ease
