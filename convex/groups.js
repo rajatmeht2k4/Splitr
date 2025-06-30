@@ -180,6 +180,7 @@ export const getGroupExpenses = query({
                 id: group._id,
                 name: group.name,
                 description: group.description,
+                inviteToken: group.inviteToken,
             },
             members: memberDetails, // All group members with details
             expenses, // All expenses in this group
@@ -261,3 +262,53 @@ export const getGroupOrMembers = query({
         }
     },
 });
+
+
+// Generate invite token
+export const generateInviteToken = mutation({
+    args: { groupId: v.id("groups") },
+    handler: async (ctx, { groupId }) => {
+      const user = await ctx.runQuery(internal.users.getCurrentUser);
+      const group = await ctx.db.get(groupId);
+      if (!group) throw new Error("Group not found");
+  
+      const isAdmin = group.members.find(
+        (m) => m.userId === user._id && m.role === "admin"
+      );
+      if (!isAdmin) throw new Error("Only admin can generate invite link");
+  
+      const token = nanoid(10);
+      await ctx.db.patch(groupId, { inviteToken: token });
+      return token;
+    },
+  });
+  
+  // Join group by token
+  export const joinGroupByToken = mutation({
+    args: { token: v.string() },
+    handler: async (ctx, { token }) => {
+      const user = await ctx.runQuery(internal.users.getCurrentUser);
+      const group = await ctx.db
+        .query("groups")
+        .filter((q) => q.eq(q.field("inviteToken"), token))
+        .first();
+  
+      if (!group) throw new Error("Invalid invite link");
+  
+      const alreadyMember = group.members.some((m) => m.userId === user._id);
+      if (alreadyMember) return group._id;
+  
+      await ctx.db.patch(group._id, {
+        members: [
+          ...group.members,
+          {
+            userId: user._id,
+            role: "member",
+            joinedAt: Date.now(),
+          },
+        ],
+      });
+  
+      return group._id;
+    },
+  });

@@ -2,6 +2,7 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
+import { nanoid } from "nanoid";
 
 /* ──────────────────────────────────────────────────────────────────────────
    1. getAllContacts – 1‑to‑1 expense contacts + groups
@@ -103,10 +104,13 @@ export const createGroup = mutation({
         throw new Error(`User with ID ${id} not found`);
     }
 
+    // const inviteToken = nanoid(12); // ✅ Generate token
+
     const groupId = await ctx.db.insert("groups", {
       name: args.name.trim(),
       description: args.description?.trim() ?? "",
       createdBy: currentUser._id,
+      inviteToken: nanoid(10), // ✅ Store token
       members: [...uniqueMembers].map((id) => ({
         userId: id,
         role: id === currentUser._id ? "admin" : "member",

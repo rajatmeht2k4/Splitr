@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/convex/_generated/api";
 import { useConvexQuery } from "@/hooks/use-convex-query";
-import { ArrowLeft, ArrowLeftRight, PlusCircle, Users } from "lucide-react";
+import { ArrowLeft, ArrowLeftRight, Check, Clipboard, PlusCircle, Users } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -19,6 +19,7 @@ const GroupPage = () => {
   const params = useParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("expenses");
+  const [copied, setCopied] = useState(false);
 
   const { data, isLoading } = useConvexQuery(api.groups.getGroupExpenses, {
     groupId: params.id,
@@ -31,8 +32,11 @@ const GroupPage = () => {
       </div>
     );
   }
-
+  
   const group = data?.group;
+  
+  const inviteUrl = group ? `${window.location.origin}/join/${group.inviteToken}` : "";   // add thissss
+
   const members = data?.members || [];
   const expenses = data?.expenses || [];
   const settlements = data?.settlements || [];
@@ -44,22 +48,37 @@ const GroupPage = () => {
     router.back("/dashboard"); //
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(inviteUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="container mx-auto py-6 max-w-4xl px-4 md:px-0 ">
       <div className="mb-6">
-        <Button
-          variant="outline"
-          size="sm"
-          className="mb-4"
-          onClick={handleBack}
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
-        </Button>
+        <div className="flex  justify-between">
+          <Button
+            variant="outline"
+            size="sm"
+            className="mb-4"
+            onClick={handleBack}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
+
+          <Button variant="outline" size="sm" className="flex items-center gap-2" onClick={handleCopy}>
+            {copied ? <Check className="h-4 w-4 mr-2" /> : <Clipboard className="h-4 w-4 mr-2" />}
+            {copied ? "Copied!" : "Share Link"}
+          </Button>
+        </div>
+
+
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-primary/10 p-4 rounded-md">
+            <div className="bg-primary/10 p-3 rounded-md">
               <Users className="h-8 w-8 text-primary" />
             </div>
             <div>

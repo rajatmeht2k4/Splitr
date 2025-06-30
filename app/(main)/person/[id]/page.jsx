@@ -56,7 +56,7 @@ const PersonPage = () => {
 
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-3'>
-                        <Avatar className="h-16 w-16">
+                        <Avatar className="h-14 w-14">
                             <AvatarImage src={otherUser?.imageUrl} />
                             <AvatarFallback>
                                 {otherUser?.name?.charAt(0) || "?"}

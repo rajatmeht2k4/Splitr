@@ -39,6 +39,7 @@ export default defineSchema({
         name: v.string(),
         description: v.optional(v.string()),
         createdBy: v.id("users"), // Reference to users table
+        inviteToken: v.optional(v.string()), // added thissssssssss
         members: v.array(
             v.object({
                 userId:v.id("users"), // Reference to users table
